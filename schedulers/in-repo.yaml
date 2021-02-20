@@ -10,7 +10,7 @@ spec:
   merger:
     blocker_label: ""
     max_goroutines: 0
-    merge_method: merge
+    merge_method: squash
     policy:
       from-branch-protection: true
       optional-contexts: { }
