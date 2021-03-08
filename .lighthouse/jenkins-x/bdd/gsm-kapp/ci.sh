@@ -3,11 +3,14 @@ set -e
 set -x
 
 # BDD test specific part
-export BDD_NAME="gke-gsm"
+export BDD_NAME="gke-gsm-kapp"
 
 # the gitops repository template to use
 export GITOPS_INFRA_PROJECT="jx3-gitops-repositories/jx3-terraform-gke"
 export GITOPS_TEMPLATE_PROJECT="jx3-gitops-repositories/jx3-gke-gsm"
+
+# add a git override
+export JX_GIT_OVERRIDES=".lighthouse/jenkins-x/bdd/gsm-kapp/overlay.sh"
 
 # enable the terraform gsm config
 export TF_VAR_gsm=true
