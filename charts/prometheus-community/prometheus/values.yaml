@@ -4,6 +4,7 @@ server:
   enabled: true
   persistentVolume:
     enabled: true
+    size: 15Gi
   strategy:
     type: Recreate
   # configure a 30d retention period - same as for loki
