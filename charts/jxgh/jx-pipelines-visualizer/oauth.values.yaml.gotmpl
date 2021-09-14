@@ -1,0 +1,6 @@
+ingress:
+  annotations:
+    nginx.ingress.kubernetes.io/auth-secret: ""
+    nginx.ingress.kubernetes.io/auth-type: ""
+    nginx.ingress.kubernetes.io/auth-signin: https://auth.{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}/oauth2/start?rd=http://$host/$request_uri
+    nginx.ingress.kubernetes.io/auth-url: https://auth.{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}/oauth2/auth
