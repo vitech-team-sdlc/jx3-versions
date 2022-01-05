@@ -2,7 +2,11 @@ grafana:
   grafana.ini:
     server:
       domain: grafana.{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}
+      {{- if .Values.jxRequirements.ingress.tls.enabled }}
+      root_url: "https://grafana.{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}"
+      {{- else }}
       root_url: "http://grafana.{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}"
+      {{- end }}
       serve_from_sub_path: true
     analytics:
       reporting_enabled: false
