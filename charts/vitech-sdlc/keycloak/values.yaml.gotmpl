@@ -13,7 +13,7 @@ keycloak:
         - name: KEYCLOAK_IMPORT
           value: /realm/default-relam.json
         - name: KEYCLOAK_FRONTEND_URL
-          value: {{- if .Values.jxRequirements.ingress.tls.enabled }}"https://keycloak.{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}/auth/"{{- else }}"http://keycloak.{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}/auth/"{{- end }}
+          value: {{- if .Values.jxRequirements.ingress.tls.enabled }} "https://keycloak.{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}/auth/"{{- else }} "http://keycloak.{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}/auth/"{{- end }}
 
     #  serviceMonitor:
     #    enabled: true
@@ -38,12 +38,12 @@ keycloak:
         - hosts:
             - keycloak.{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}
             {{- if hasKey .Values.jxRequirements.ingress.tls "secretName" }}
-                secretName: "{{ .Values.jxRequirements.ingress.tls.secretName }}"
-            {{- else if .Values.jxRequirements.ingress.tls.production }}
-                secretName: "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-p"
-            {{- else }}
-                secretName: "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-s"
-            {{- end }}
+        secretName: "{{ .Values.jxRequirements.ingress.tls.secretName }}"
+    {{- else if .Values.jxRequirements.ingress.tls.production }}
+        secretName: "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-p"
+    {{- else }}
+        secretName: "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-s"
+    {{- end }}
     {{- end }}
         rules:
             - host: 'keycloak.{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}'
