@@ -37,17 +37,18 @@ keycloak:
         tls:
         - hosts:
             - keycloak.{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}
-            {{- if hasKey .Values.jxRequirements.ingress.tls "secretName" }}
-        secretName: "{{ .Values.jxRequirements.ingress.tls.secretName }}"
+    {{- if hasKey .Values.jxRequirements.ingress.tls "secretName" }}
+          secretName: "{{ .Values.jxRequirements.ingress.tls.secretName }}"
     {{- else if .Values.jxRequirements.ingress.tls.production }}
-        secretName: "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-p"
+          secretName: "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-p"
     {{- else }}
-        secretName: "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-s"
+          secretName: "tls-{{ .Values.jxRequirements.ingress.domain | replace "." "-" }}-s"
     {{- end }}
     {{- end }}
         rules:
             - host: 'keycloak.{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}'
               paths:
-              - /
+                - path: /
+                  pathType: Prefix
     postgresql:
         enabled: true
