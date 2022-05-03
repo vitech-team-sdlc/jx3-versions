@@ -15,6 +15,21 @@ secrets:
 # embedded postgresql chart
 # https://github.com/bitnami/charts/blob/master/bitnami/postgresql/values.yaml
 postgresql:
+  resources:
+    limits: { }
+    requests:
+      memory: 128Mi
+      cpu: 50m
   existingSecret: cd-indicators-postgresql-password
   image:
     tag: 13.1.0-debian-10-r38
+
+
+pod:
+  resources:
+    requests:
+      cpu: 10m
+      memory: 100M
+    limits:
+      cpu: "1"
+      memory: 512M

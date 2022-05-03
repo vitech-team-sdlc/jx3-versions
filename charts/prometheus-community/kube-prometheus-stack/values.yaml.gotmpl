@@ -77,3 +77,18 @@ prometheus:
   ingress:
     enabled: false
     hosts: [ ]
+
+prometheusOperator:
+  prometheusConfigReloader:
+    resources:
+      requests:
+        cpu: 20m
+        memory: 50Mi
+      limits:
+        cpu: 200m
+        memory: 50Mi
+
+kube-state-metrics:
+  metricLabelsAllowlist:
+    - "pods=[*]"
+    - "deployments=[*]"
