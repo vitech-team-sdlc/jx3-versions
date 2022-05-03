@@ -28,3 +28,15 @@ env:
   GIT_SECRET_SERVER: {{ .Values.jxRequirements.cluster.gitServer }}
   TRACES_EXPORTER_TYPE: "jaeger:http:thrift"
   TRACES_EXPORTER_ENDPOINT: "tempo.jx-observability:14268"
+
+
+resources:
+  # resources.limits -- Resource limits applied to the controller pods
+  limits:
+    cpu: 100m
+    memory: 512Mi
+
+  # resources.requests -- Resource requests applied to the controller pods
+  requests:
+    cpu: 20m
+    memory: 90Mi

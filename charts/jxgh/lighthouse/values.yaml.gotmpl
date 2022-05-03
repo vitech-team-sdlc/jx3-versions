@@ -22,6 +22,16 @@ logFormat: "stackdriver"
 tektoncontroller:
   dashboardURL: "http://dashboard{{ .Values.jxRequirements.ingress.namespaceSubDomain }}{{ .Values.jxRequirements.ingress.domain }}"
   dashboardTemplate: "namespaces/{{"{{"}} .Namespace {{"}}"}}/pipelineruns/{{"{{"}} .PipelineRun {{"}}"}}"
+  resources:
+    # tektoncontroller.resources.limits -- Resource limits applied to the tekton controller pods
+    limits:
+      cpu: 100m
+      memory: 256Mi
+
+    # tektoncontroller.resources.requests -- Resource requests applied to the tekton controller pods
+    requests:
+      cpu: 20m
+      memory: 128Mi
 
 env:
   JX_DEFAULT_IMAGE: ghcr.io/jenkins-x/builder-maven:2.1.149-768
@@ -38,6 +48,16 @@ env:
   LIGHTHOUSE_VERSIONSTREAM_JENKINS_X_JX3_PIPELINE_CATALOG: {{ readFile "../../../git/github.com/jenkins-x/jx3-pipeline-catalog.yml" | fromYaml | get "version" | quote }}
 
 keeper:
+  resources:
+    # keeper.resources.limits -- Resource limits applied to the keeper pods
+    limits:
+      cpu: 400m
+      memory: 512Mi
+
+    # keeper.resources.requests -- Resource requests applied to the keeper pods
+    requests:
+      cpu: 10m
+      memory: 50Mi
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "9090"
@@ -75,9 +95,33 @@ user: "{{ .Values.jxRequirements.pipelineUser.username }}"
 oauthToken: "{{ .Values.jx.secrets.pipelineUser.token }}"
 
 webhooks:
+  resources:
+    # webhooks.resources.limits -- Resource limits applied to the webhooks pods
+    limits:
+      cpu: 100m
+      # may require more memory to perform the initial 'git clone' cmd for big repositories
+      memory: 512Mi
+
+    # webhooks.resources.requests -- Resource requests applied to the webhooks pods
+    requests:
+      cpu: 20m
+      memory: 80Mi
   labels:
     git.jenkins-x.io/sha: annotate
   podAnnotations:
     prometheus.io/scrape: "true"
     prometheus.io/port: "2112"
   customDeploymentTriggerCommand: "jx"
+
+foghorn:
+  resources:
+    # foghorn.resources.limits -- Resource limits applied to the foghorn pods
+    limits:
+      cpu: 100m
+      memory: 256Mi
+
+    # foghorn.resources.requests -- Resource requests applied to the foghorn pods
+    requests:
+      cpu: 10m
+      memory: 50Mi
+

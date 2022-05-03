@@ -4,4 +4,4 @@ pod:
   env:
     # export traces to our grafana tempo instance
     TRACES_EXPORTER_TYPE: "jaeger:http:thrift"
-    TRACES_EXPORTER_ENDPOINT: "tempo.jx-observability:14268"
+    TRACES_EXPORTER_ENDPOINT: "tempo.monitoring:14268"
