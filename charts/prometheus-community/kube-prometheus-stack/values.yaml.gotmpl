@@ -1,4 +1,5 @@
-grafana:
+persistence:
+  enabled: true
   grafana.ini:
     server:
       domain: grafana.{{ .Values.jxRequirements.ingress.domain | default "cluster.local" }}
