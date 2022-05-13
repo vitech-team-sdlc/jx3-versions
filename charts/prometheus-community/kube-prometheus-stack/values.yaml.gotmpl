@@ -26,7 +26,7 @@ grafana:
       {{- range $key, $val := .Values.jxRequirements.environments }}
         {{- if hasKey $val "key" }}
           {{- if eq $val.key "dev" }}
-      github-org: {{ $val.owner }}
+      allowed_organizations: {{ $val.owner }}
           {{- end }}
         {{- end }}
       {{- end }}
