@@ -27,7 +27,7 @@ env:
 {{- end }}
   GIT_SECRET_SERVER: {{ .Values.jxRequirements.cluster.gitServer }}
   TRACES_EXPORTER_TYPE: "jaeger:http:thrift"
-  TRACES_EXPORTER_ENDPOINT: "tempo.jx-observability:14268"
+  TRACES_EXPORTER_ENDPOINT: "tempo.monitoring:14268"
 
 
 resources:
