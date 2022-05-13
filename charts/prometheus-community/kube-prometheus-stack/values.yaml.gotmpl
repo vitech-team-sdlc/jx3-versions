@@ -13,6 +13,23 @@ grafana:
     analytics:
       reporting_enabled: false
       check_for_updates: false
+    auth.github:
+      enabled: true
+      allow_sign_up: true
+      client_id: $__file{/etc/secrets/github_oauth_grafana/client_id}
+      client_secret: $__file{/etc/secrets/github_oauth_grafana/client_secret}
+      scopes: user:email,read:org
+      auth_url: https://github.com/login/oauth/authorize
+      token_url: https://github.com/login/oauth/access_token
+      api_url: https://api.github.com/user
+      team_ids:
+      {{- range $key, $val := .Values.jxRequirements.environments }}
+        {{- if hasKey $val "key" }}
+          {{- if eq $val.key "dev" }}
+      github-org: {{ $val.owner }}
+          {{- end }}
+        {{- end }}
+      {{- end }}
   plugins:
     - grafana-piechart-panel 1.6.1
     - briangann-datatable-panel 1.0.3
