@@ -27,7 +27,7 @@ spec:
               resources: {}
             - name: jx-variables
               resources: {}
-            - image: ghcr.io/jenkins-x/jx-scm:0.0.28
+            - image: ghcr.io/jenkins-x/jx-scm:0.1.5
               name: release-jx-cli
               resources: {}
               env:
@@ -48,7 +48,7 @@ spec:
                 ./.lighthouse/jenkins-x/release/promote-jx-website.sh
             - name: changelog
               resources: {}
-            - image: ghcr.io/jenkins-x/jx:3.2.339
+            - image: ghcr.io/jenkins-x/jx:3.3.3
               name: promote-vs
               resources: {}
               script: |
